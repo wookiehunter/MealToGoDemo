@@ -1,45 +1,20 @@
 import React from "react";
-import styled from "styled-components/native";
-import { StyleSheet, Text, Image } from "react-native";
-import { Card, Title, Paragraph } from "react-native-paper";
+import { Image } from "react-native";
+import { Card } from "react-native-paper";
 import { SvgXml } from "react-native-svg";
 import star from "../../../../assets/star.js";
 import open from "../../../../assets/open.js";
 import { Spacer } from "../../../components/spacer/spacer.component";
-
-const RestaurantCard = styled(Card)`
-  backgroundcolor: orangered;
-`;
-
-const RestaurantCardCover = styled(Card.Cover)`
-  padding: 0;
-  background-color: ${(props) => props.theme.colors.bg.secondary};
-`;
-
-const RestaurantCardTitle = styled(Title)`
-  color: ${(props) => props.theme.colors.text.secondary};
-  font-family: ${(props) => props.theme.fonts.heading};
-`;
-
-const Row = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  padding-top: ${(props) => props.theme.space[2]};
-  padding-bottom: ${(props) => props.theme.space[2]};
-`;
-
-const StarsContainer = styled.View`
-  flex-direction: row;
-`;
-
-const IconContainer = styled.View`
-  flex-direction: row;
-`;
-
-const RestaurantCardParagraph = styled(Paragraph)`
-  color: ${(props) => props.theme.colors.text.primary};
-  font-family: ${(props) => props.theme.fonts.body};
-`;
+import { Text } from "../../../components/typography/text.component";
+import {
+  RestaurantCard,
+  RestaurantCardCover,
+  RestaurantCardTitle,
+  Row,
+  StarsContainer,
+  IconContainer,
+  RestaurantCardParagraph,
+} from "./restaurant-info-card.styles";
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
@@ -69,9 +44,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
           </StarsContainer>
           <IconContainer>
             {isClosedTemporarily && (
-              <Text variant="label" style={{ color: "orangered" }}>
-                Closed Temporarily
-              </Text>
+              <Text variant="error">Closed Temporarily</Text>
             )}
             <Spacer position="left" size="large">
               {isOpenNow ? <SvgXml xml={open} width={20} height={20} /> : null}

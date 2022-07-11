@@ -1,6 +1,12 @@
 import React from "react";
 import styled from "styled-components/native";
-import { SafeAreaView, StatusBar, StyleSheet, Text, View } from "react-native";
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  FlatList,
+  View,
+} from "react-native";
 import { Searchbar } from "react-native-paper";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component.js";
 
@@ -14,13 +20,24 @@ const RestaurantSearch = styled(Searchbar)`
   padding: ${(props) => props.theme.space[3]};
 `;
 
+const RestaurantList = styled(FlatList).attrs({
+  contentContainerStyle: {
+    padding: 16,
+  },
+})``;
+
 export const RestaurantsScreen = () => (
   <RestaurantSafeAreaView>
     <View style={styles.search}>
       <RestaurantSearch placeholder="Search" />
     </View>
     <View style={styles.results}>
-      <RestaurantInfoCard />
+      <RestaurantList
+        data={[{ name: 1 }, { name: 2 }]}
+        renderItem={() => <RestaurantInfoCard />}
+        keyExtractor={(item) => item.name}
+        // contentContainerStyle={{ padding: 16 }}
+      />
     </View>
   </RestaurantSafeAreaView>
 );
@@ -33,6 +50,5 @@ const styles = StyleSheet.create({
   results: {
     flex: 1,
     backgroundColor: "white",
-    padding: 16,
   },
 });
