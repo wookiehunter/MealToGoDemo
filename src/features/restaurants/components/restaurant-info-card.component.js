@@ -18,13 +18,13 @@ import {
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
-    name = "Dun King",
-    icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
+    name = restaurant.name,
+    icon = restaurant.icon,
     photos = [
       "https://img.freepik.com/free-photo/grilled-beef-steak-with-fries-grilled-tomato-pepper-sauces_140725-10545.jpg?t=st=1657118890~exp=1657119490~hmac=9ac122a7858b34820d26547e91e93ad4706ea00ecd5bc9432728fc12f9139e0a&w=996",
     ],
-    rating = 4.5,
-    address = "1600 Some Shitty Road",
+    rating = restaurant.rating,
+    address = restaurant.vicinity,
     isOpenNow = true,
     isClosedTemporarily = true,
   } = restaurant;

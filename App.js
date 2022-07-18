@@ -16,6 +16,7 @@ import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
 import { theme } from "./src/infrastructure/theme";
 import { RestaurantsScreen } from "./src/features/restaurants/screens/restaurants.screen.js";
 import { RestaurantsContextProvider } from "./src/services/restaurants/restaurants.context";
+import { LocationContextProvider } from "./src/services/location/location.context";
 
 function HomeScreen() {
   return <RestaurantsScreen />;
@@ -50,33 +51,37 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <RestaurantsContextProvider>
-          <NavigationContainer>
-            <Tab.Navigator
-              screenOptions={({ route }) => ({
-                tabBarIcon: ({ focused, color, size }) => {
-                  let iconName;
+        <LocationContextProvider>
+          <RestaurantsContextProvider>
+            <NavigationContainer>
+              <Tab.Navigator
+                screenOptions={({ route }) => ({
+                  tabBarIcon: ({ focused, color, size }) => {
+                    let iconName;
 
-                  if (route.name === "Restaurants") {
-                    iconName = "md-restaurant";
-                  } else if (route.name === "Maps") {
-                    iconName = "md-map";
-                  } else if (route.name === "Settings") {
-                    iconName = "md-settings";
-                  }
-                  // You can return any component that you like here!
-                  return <Ionicons name={iconName} size={size} color={color} />;
-                },
-                tabBarActiveTintColor: "green",
-                tabBarInactiveTintColor: "black",
-              })}
-            >
-              <Tab.Screen name="Restaurants" component={HomeScreen} />
-              <Tab.Screen name="Maps" component={MapsScreen} />
-              <Tab.Screen name="Settings" component={SettingsScreen} />
-            </Tab.Navigator>
-          </NavigationContainer>
-        </RestaurantsContextProvider>
+                    if (route.name === "Restaurants") {
+                      iconName = "md-restaurant";
+                    } else if (route.name === "Maps") {
+                      iconName = "md-map";
+                    } else if (route.name === "Settings") {
+                      iconName = "md-settings";
+                    }
+                    // You can return any component that you like here!
+                    return (
+                      <Ionicons name={iconName} size={size} color={color} />
+                    );
+                  },
+                  tabBarActiveTintColor: "green",
+                  tabBarInactiveTintColor: "black",
+                })}
+              >
+                <Tab.Screen name="Restaurants" component={HomeScreen} />
+                <Tab.Screen name="Maps" component={MapsScreen} />
+                <Tab.Screen name="Settings" component={SettingsScreen} />
+              </Tab.Navigator>
+            </NavigationContainer>
+          </RestaurantsContextProvider>
+        </LocationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
