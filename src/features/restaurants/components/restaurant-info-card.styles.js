@@ -1,37 +1,42 @@
-import React from "react";
 import styled from "styled-components/native";
-import { Card, Title, Paragraph } from "react-native-paper";
+import { Card } from "react-native-paper";
+
+export const Icon = styled.Image`
+  width: 15px;
+  height: 15px;
+`;
 
 export const RestaurantCard = styled(Card)`
-  margin-bottom: ${(props) => props.theme.space[3]};
+  background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 
 export const RestaurantCardCover = styled(Card.Cover)`
-  padding: 0;
-  background-color: ${(props) => props.theme.colors.bg.secondary};
+  padding: ${(props) => props.theme.space[3]};
+  background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 
-export const RestaurantCardTitle = styled(Title)`
-  color: ${(props) => props.theme.colors.text.secondary};
-  font-family: ${(props) => props.theme.fonts.heading};
+export const Address = styled.Text`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.caption};
 `;
 
-export const Row = styled.View`
+export const Info = styled.View`
+  padding: ${(props) => props.theme.space[3]};
+`;
+
+export const Rating = styled.View`
   flex-direction: row;
-  justify-content: space-between;
   padding-top: ${(props) => props.theme.space[2]};
   padding-bottom: ${(props) => props.theme.space[2]};
 `;
 
-export const StarsContainer = styled.View`
+export const Section = styled.View`
   flex-direction: row;
+  align-items: center;
 `;
 
-export const IconContainer = styled.View`
+export const SectionEnd = styled.View`
+  flex: 1;
   flex-direction: row;
-`;
-
-export const RestaurantCardParagraph = styled(Paragraph)`
-  color: ${(props) => props.theme.colors.text.primary};
-  font-family: ${(props) => props.theme.fonts.body};
+  justify-content: flex-end;
 `;

@@ -1,26 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import { FlatList } from "react-native";
 import styled from "styled-components/native";
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  FlatList,
-  View,
-} from "react-native";
-import { ActivityIndicator, Colors, Searchbar } from "react-native-paper";
-import { RestaurantInfoCard } from "../components/restaurant-info-card.component.js";
-import { useContext } from "react";
+import { ActivityIndicator, Colors } from "react-native-paper";
+
+import { SafeArea } from "../../../components/utility/safe-area.component";
+import { Spacer } from "../../../components/spacer/spacer.component";
+
 import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
 
-const RestaurantSafeAreaView = styled(SafeAreaView)`
-  flex: 1;
-  ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
-`;
-
-const RestaurantSearch = styled(Searchbar)`
-  background-color: ${(props) => props.theme.colors.bg.secondary};
-  padding: ${(props) => props.theme.space[3]};
-`;
+import { Search } from "../components/search.component";
+import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
 
 const RestaurantList = styled(FlatList).attrs({
   contentContainerStyle: {
@@ -31,8 +20,7 @@ const RestaurantList = styled(FlatList).attrs({
 const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
 `;
-
-const LoadingContainer = styled(View)`
+const LoadingContainer = styled.View`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -41,36 +29,24 @@ const LoadingContainer = styled(View)`
 export const RestaurantsScreen = () => {
   const { isLoading, error, restaurants } = useContext(RestaurantsContext);
   return (
-    <RestaurantSafeAreaView>
+    <SafeArea>
       {isLoading && (
         <LoadingContainer>
-          <Loading size={50} animating={true} color={Colors.red800} />
+          <Loading size={50} animating={true} color={Colors.blue300} />
         </LoadingContainer>
       )}
-      <View style={styles.search}>
-        <RestaurantSearch placeholder="Search" />
-      </View>
-      <View style={styles.results}>
-        <RestaurantList
-          data={restaurants}
-          renderItem={({ item }) => {
-            console.log("Item is: ", item);
-            return <RestaurantInfoCard restaurant={item} />;
-          }}
-          keyExtractor={(item) => item.name}
-        />
-      </View>
-    </RestaurantSafeAreaView>
+      <Search />
+      <RestaurantList
+        data={restaurants}
+        renderItem={({ item }) => {
+          return (
+            <Spacer position="bottom" size="large">
+              <RestaurantInfoCard restaurant={item} />
+            </Spacer>
+          );
+        }}
+        keyExtractor={(item) => item.name}
+      />
+    </SafeArea>
   );
 };
-
-const styles = StyleSheet.create({
-  search: {
-    backgroundColor: "white",
-    padding: 16,
-  },
-  results: {
-    flex: 1,
-    backgroundColor: "white",
-  },
-});
